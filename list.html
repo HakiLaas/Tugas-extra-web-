@@ -1,19 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wishlist - FigureStore</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: poppins, sans-serif;
+            text-decoration: none;
+            transition: all .3s ease;
+            scroll-behavior: smooth;
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 0.5rem;
+            background: var(--grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            width: 0.5rem;
+            background: var(--red);
+            border-radius: 5rem;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--orange);
+        }
 
         :root {
             --poppins: 'Poppins', sans-serif;
             --lato: 'Lato', sans-serif;
+
+            /* Color basic */
             --light: #F9F9F9;
-            --dark: #343a40;
+            --blue: #3C91E6;
+            --light-blue: #CFE8FF;
+            --grey: #e7e7e7;
+            --dark-grey: #888888;
+            --dark: #222;
+
+            /* Main Color */
+            --red: #ff6b6b;
+            --yellow: #FFCE26;
+            --light-yellow: #FFF2C6;
+            --orange: #fb6727;
+            --light-orange: #FFE0D3;
+
+            /* Secondary Color */
         }
 
         body {
@@ -24,18 +76,27 @@
             flex-direction: column;
         }
 
+        body.dark {
+            --light: #222;
+            --grey: #e7e7e7;
+            --dark: #F9F9F9;
+
+            /* Main Color Switch */
+            --red: #fb6727;
+        }
+
         /* Navbar Styles */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: var(--dark);
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 15px 0;
         }
 
         .navbar-brand {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #ff6b6b !important;
+            color: var(--red) !important;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -43,19 +104,31 @@
 
         .navbar-brand i {
             font-size: 1.8rem;
+            color: var(--red);
         }
 
         .nav-link {
             font-weight: 500;
-            color: var(--dark);
+            color: var(--light);
             padding: 8px 16px !important;
             transition: all 0.3s ease;
             border-radius: 8px;
+            margin: 0 4px;
         }
 
-        .nav-link:hover, .nav-link.active {
-            color: #ff6b6b;
+        .nav-link:hover {
+            color: var(--red);
             background-color: rgba(255, 107, 107, 0.1);
+        }
+
+        .nav-link.active1 {
+            color: var(--red);
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+
+        .nav-link i {
+            margin-right: 6px;
+            font-size: 1.2rem;
         }
 
         /* Content Styles */
@@ -76,14 +149,14 @@
         .card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             overflow: hidden;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .card-img-top {
@@ -162,7 +235,7 @@
         }
 
         /* Footer Styles */
-        footer {
+        /* footer {
             background-color: #343a40;
             color: white;
             padding: 40px 0;
@@ -211,7 +284,7 @@
 
         .text-light-gray {
             color: #adb5bd;
-        }
+        } */
 
         /* Cart Offcanvas Styles */
         .offcanvas {
@@ -238,147 +311,161 @@
             padding: 15px;
             border-top: 2px solid #eee;
         }
-        .contact-info li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #adb5bd;
-    margin-bottom: 15px;
-}
 
-.contact-info li i {
-    font-size: 1.2rem;
-    color: #ff6b6b;
-}
+        /* .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #adb5bd;
+            margin-bottom: 15px;
+        }
 
-.social-links a {
-    color: #adb5bd;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-}
+        .contact-info li i {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+        }
 
-.social-links a:hover {
-    color: #ff6b6b;
-    transform: translateY(-3px);
-}
+        .social-links a {
+            color: #adb5bd;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
 
-footer hr {
-    border-color: rgba(255,255,255,0.1);
-}
+        .social-links a:hover {
+            color: #ff6b6b;
+            transform: translateY(-3px);
+        }
 
-footer .text-light {
-    color: #adb5bd !important;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
+        footer hr {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
 
-footer .text-light:hover {
-    color: #ff6b6b !important;
-}
+        footer .text-light {
+            color: #adb5bd !important;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
 
-/* Notification Styles */
-.notification-popup {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    animation: slideIn 0.5s ease-out;
-}
+        footer .text-light:hover {
+            color: #ff6b6b !important;
+        } */
 
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
+        /* Notification Styles */
+        .notification-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
 
-.search-input {
-    border-radius: 8px 0 0 8px !important;
-    border-right: none !important;
-}
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
 
-.btn-search {
-    background-color: #ff6b6b;
-    color: white;
-    border: 1px solid #ff6b6b;
-    border-radius: 0 8px 8px 0 !important;
-    padding: 6px 12px;
-    transition: all 0.3s ease;
-}
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
 
-.btn-search:hover {
-    background-color: #fa5252;
-    border-color: #fa5252;
-    color: white;
-}
+        .search-input {
+            border-radius: 8px 0 0 8px !important;
+            border-right: none !important;
+        }
 
-.search-result {
-    text-align: center;
-    padding: 20px;
-    color: #6c757d;
-}
+        .btn-search {
+            background-color: #ff6b6b;
+            color: white;
+            border: 1px solid #ff6b6b;
+            border-radius: 0 8px 8px 0 !important;
+            padding: 6px 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-search:hover {
+            background-color: #fa5252;
+            border-color: #fa5252;
+            color: white;
+        }
+
+        .search-result {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+        }
+
+        .theme-switch {
+            margin-left: 16px;
+        }
+
+        
     </style>
 </head>
+
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <i class='bx bxs-store'></i>
-            FigureStore
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.html">
-                        <i class='bx bxs-home'></i> Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="store.html">
-                        <i class='bx bxs-shopping-bag-alt'></i> Store
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="categories.html">
-                        <i class='bx bxs-category'></i> Categories
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="list.html">
-                        <i class='bx bxs-heart'></i> Wishlist
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="AI.html">
-                       <i class='bx bxs-chat'></i>AI Asistens
-                    </a>
-                </li>
-            </ul>
-            <div class="d-flex align-items-center">
-                <form class="d-flex me-3">
-                    <div class="input-group">
-                        <input type="search" class="form-control search-input" placeholder="Search...">
-                        <button class="btn btn-search" type="submit">
-                            <i class='bx bx-search'></i>
-                        </button>
+    <div id="loader">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class='bx bxs-store'></i>
+                FigureStore
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class='bx bxs-home'></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="store.html">
+                            <i class='bx bxs-shopping-bag-alt'></i> Store
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="categories.html">
+                            <i class='bx bxs-category'></i> Categories
+                        </a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link active1" href="list.html">
+                            <i class='bx bxs-heart'></i> Wishlist
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="AI.html">
+                            <i class='bx bxs-chat'></i>AI Asistens
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <form class="d-flex me-3">
+                        <div class="input-group">
+                            <input type="search" class="form-control search-input" placeholder="Search...">
+                            <button class="btn btn-search" type="submit">
+                                <i class='bx bx-search'></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="theme-switch">
+                        <input type="checkbox" id="switch-mode" hidden>
+                        <label for="switch-mode" class="switch-mode"></label>
                     </div>
-                </form>
-                <div class="theme-switch">
-                    <input type="checkbox" id="switch-mode" hidden>
-                    <label for="switch-mode" class="switch-mode"></label>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 
     <!-- Content -->
@@ -419,7 +506,8 @@ footer .text-light:hover {
                         <i class='bx bxs-store'></i>
                         <span>FigureStore</span>
                     </div>
-                    <p class="text-light-gray">Toko figure anime terpercaya dengan koleksi terlengkap dan original. Kami menyediakan berbagai merchandise anime berkualitas tinggi.</p>
+                    <p class="text-light-gray">Toko figure anime terpercaya dengan koleksi terlengkap dan original. Kami
+                        menyediakan berbagai merchandise anime berkualitas tinggi.</p>
                 </div>
                 <div class="col-md-2 mb-4">
                     <h5>Menu</h5>
@@ -460,8 +548,8 @@ footer .text-light:hover {
                     <p class="mb-0">&copy; 2024 FigureStore. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <a href="#" class="text-light me-3">Privacy Policy</a>
-                    <a href="#" class="text-light">Terms & Conditions</a>
+                    <a href="#" class="text-light2 me-3">Privacy Policy</a>
+                    <a href="#" class="text-light2">Terms & Conditions</a>
                 </div>
             </div>
         </div>
@@ -514,14 +602,14 @@ footer .text-light:hover {
         function removeFromWishlist(index) {
             let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
             let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-            
+
             // Simpan item yang akan dihapus
             const itemToRemove = wishlist[index];
-            
+
             // Hapus dari wishlist
             wishlist.splice(index, 1);
             localStorage.setItem('wishlist', JSON.stringify(wishlist));
-            
+
             // Hapus item yang sama dari keranjang jika ada
             const cartIndex = cartItems.findIndex(item => item.name === itemToRemove.name);
             if (cartIndex !== -1) {
@@ -533,7 +621,7 @@ footer .text-light:hover {
             } else {
                 showNotification('Item berhasil dihapus dari wishlist', 'success');
             }
-            
+
             displayWishlist();
         }
 
@@ -615,52 +703,52 @@ footer .text-light:hover {
         }
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             displayWishlist();
             updateCartCount();
             updateCartDisplay();
         });
         // ... existing code ...
 
-// Initialize
-document.addEventListener('DOMContentLoaded', function() {
-    displayWishlist();
-    updateCartCount();
-    updateCartDisplay();
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            displayWishlist();
+            updateCartCount();
+            updateCartDisplay();
 
-    // Tambahkan event listener untuk form pencarian
-    const searchForm = document.querySelector('form');
-    const searchInput = document.querySelector('.search-input');
-    
-    searchForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        searchWishlist(searchInput.value);
-    });
+            // Tambahkan event listener untuk form pencarian
+            const searchForm = document.querySelector('form');
+            const searchInput = document.querySelector('.search-input');
 
-    // Tambahkan event listener untuk pencarian real-time
-    searchInput.addEventListener('input', function() {
-        searchWishlist(this.value);
-    });
-});
+            searchForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                searchWishlist(searchInput.value);
+            });
 
-// Fungsi untuk mencari item di wishlist
-function searchWishlist(query) {
-    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    const searchQuery = query.toLowerCase().trim();
+            // Tambahkan event listener untuk pencarian real-time
+            searchInput.addEventListener('input', function () {
+                searchWishlist(this.value);
+            });
+        });
 
-    if (!searchQuery) {
-        displayWishlist(); // Tampilkan semua item jika query kosong
-        return;
-    }
+        // Fungsi untuk mencari item di wishlist
+        function searchWishlist(query) {
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const searchQuery = query.toLowerCase().trim();
 
-    const filteredWishlist = wishlist.filter(item => 
-        item.name.toLowerCase().includes(searchQuery)
-    );
+            if (!searchQuery) {
+                displayWishlist(); // Tampilkan semua item jika query kosong
+                return;
+            }
 
-    const wishlistContainer = document.getElementById('wishlistContainer');
+            const filteredWishlist = wishlist.filter(item =>
+                item.name.toLowerCase().includes(searchQuery)
+            );
 
-    if (filteredWishlist.length === 0) {
-        wishlistContainer.innerHTML = `
+            const wishlistContainer = document.getElementById('wishlistContainer');
+
+            if (filteredWishlist.length === 0) {
+                wishlistContainer.innerHTML = `
             <div class="col-12 search-result">
                 <i class='bx bx-search-alt' style="font-size: 4rem; color: #dee2e6;"></i>
                 <h3>Tidak Ada Hasil</h3>
@@ -670,10 +758,10 @@ function searchWishlist(query) {
                 </button>
             </div>
         `;
-        return;
-    }
+                return;
+            }
 
-    wishlistContainer.innerHTML = filteredWishlist.map((item, index) => `
+            wishlistContainer.innerHTML = filteredWishlist.map((item, index) => `
         <div class="col-md-3 mb-4">
             <div class="card">
                 <img src="${item.image}" class="card-img-top" alt="${item.name}">
@@ -692,18 +780,46 @@ function searchWishlist(query) {
             </div>
         </div>
     `).join('');
-}
+        }
         // Dark mode toggle
         const switchMode = document.getElementById('switch-mode');
-        
+
         switchMode.addEventListener('change', function () {
-            if(this.checked) {
+            if (this.checked) {
                 document.body.classList.add('dark');
             } else {
                 document.body.classList.remove('dark');
             }
         });
-        
+
+        // Dark Mode Light Mode
+        document.addEventListener("DOMContentLoaded", () => {
+            const themeToggle = document.querySelectorAll("#switch-mode");
+            const body = document.body;
+
+            const Icon = () => {
+                themeToggle.forEach(btn => {
+                    if (body.classList.contains("dark")) {
+                        btn.classList.remove("bx-sun");
+                        btn.classList.add("bx-moon");
+                    } else {
+                        btn.classList.remove("bx-moon");
+                        btn.classList.add("bx-sun");
+                    }
+                });
+            };
+
+            themeToggle.forEach(toggle => {
+                toggle.addEventListener("click", () => {
+                    body.classList.toggle("dark");
+                    Icon();
+                });
+            });
+            Icon();
+        });
+
     </script>
+    <script src="style.js"></script>
 </body>
+
 </html>

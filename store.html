@@ -1,19 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Store - FigureStore</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
-
+        
         :root {
             --poppins: 'Poppins', sans-serif;
             --lato: 'Lato', sans-serif;
             --light: #F9F9F9;
             --dark: #343a40;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: poppins, sans-serif;
+            text-decoration: none;
+            transition: all .3s ease;
+            scroll-behavior: smooth;
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 0.5rem;
+            background: var(--grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            width: 0.5rem;
+            background: var(--red);
+            border-radius: 5rem;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--orange);
+        }
+
+        :root {
+            --poppins: 'Poppins', sans-serif;
+            --lato: 'Lato', sans-serif;
+
+            /* Color basic */
+            --light: #F9F9F9;
+            --blue: #3C91E6;
+            --light-blue: #CFE8FF;
+            --grey: #e7e7e7;
+            --dark-grey: #888888;
+            --dark: #222;
+
+            /* Main Color */
+            --red: #ff6b6b;
+            --yellow: #FFCE26;
+            --light-yellow: #FFF2C6;
+            --orange: #fb6727;
+            --light-orange: #FFE0D3;
+
+            /* Secondary Color */
         }
 
         body {
@@ -24,18 +83,27 @@
             flex-direction: column;
         }
 
+        body.dark {
+            --light: #222;
+            --grey: #e7e7e7;
+            --dark: #F9F9F9;
+
+            /* Main Color Switch */
+            --red: #fb6727;
+        }
+
         /* Navbar Styles */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: var(--dark);
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 15px 0;
         }
 
         .navbar-brand {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #ff6b6b !important;
+            color: var(--red) !important;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -43,19 +111,31 @@
 
         .navbar-brand i {
             font-size: 1.8rem;
+            color: var(--red);
         }
 
         .nav-link {
             font-weight: 500;
-            color: var(--dark);
+            color: var(--light);
             padding: 8px 16px !important;
             transition: all 0.3s ease;
             border-radius: 8px;
+            margin: 0 4px;
         }
 
-        .nav-link:hover, .nav-link.active {
-            color: #ff6b6b;
+        .nav-link:hover {
+            color: var(--red);
             background-color: rgba(255, 107, 107, 0.1);
+        }
+
+        .nav-link.active1 {
+            color: var(--red);
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+
+        .nav-link i {
+            margin-right: 6px;
+            font-size: 1.2rem;
         }
 
         /* Content Styles */
@@ -75,18 +155,17 @@
         .card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4p    x 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             overflow: hidden;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow2) ;
         }
 
         .card-img-top {
-            height: 250px;
             object-fit: cover;
             transition: all 0.3s ease;
         }
@@ -97,6 +176,10 @@
 
         .card-body {
             padding: 1.5rem;
+        }
+
+        .card-body h5, .card-body p{
+            color: #222;
         }
 
         .card-title {
@@ -150,7 +233,7 @@
         }
 
         /* Footer Styles */
-        footer {
+        /* footer {
             background-color: #343a40;
             color: white;
             padding: 40px 0;
@@ -199,7 +282,7 @@
 
         .text-light-gray {
             color: #adb5bd;
-        }
+        } */
 
         /* Notification Styles */
         .notification-popup {
@@ -215,101 +298,109 @@
                 transform: translateX(100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateX(0);
                 opacity: 1;
             }
         }
+
         /* Footer Styles */
-.contact-info li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #adb5bd;
-    margin-bottom: 15px;
-}
+        /* .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #adb5bd;
+            margin-bottom: 15px;
+        }
 
-.contact-info li i {
-    font-size: 1.2rem;
-    color: #ff6b6b;
-}
+        .contact-info li i {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+        }
 
-.social-links a {
-    color: #adb5bd;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-}
+        .social-links a {
+            color: #adb5bd;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
 
-.social-links a:hover {
-    color: #ff6b6b;
-    transform: translateY(-3px);
-}
+        .social-links a:hover {
+            color: #ff6b6b;
+            transform: translateY(-3px);
+        }
 
-footer hr {
-    border-color: rgba(255,255,255,0.1);
-}
+        footer hr {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
 
-footer .text-light {
-    color: #adb5bd !important;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
+        footer .text-light {
+            color: #adb5bd !important;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
 
-footer .text-light:hover {
-    color: #ff6b6b !important;
-}
+        footer .text-light:hover {
+            color: #ff6b6b !important;
+        } */
 
-.cart-count {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: #ff6b6b;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
 
-.cart-item {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    gap: 15px;
-}
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            gap: 15px;
+        }
 
-.cart-item img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 8px;
-}
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
 
-.cart-item h6 {
-    margin-bottom: 5px;
-    font-weight: 600;
-}
+        .cart-item h6 {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
 
-.cart-item p {
-    margin-bottom: 0;
-    color: #ff6b6b;
-    font-weight: 600;
-}
+        .cart-item p {
+            margin-bottom: 0;
+            color: #ff6b6b;
+            font-weight: 600;
+        }
 
-.cart-total {
-    padding: 15px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    border-top: 2px solid #eee;
-}
+        .cart-total {
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-top: 2px solid #eee;
+        }
     </style>
 </head>
+
 <body>
+    <div id="loader">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
@@ -323,20 +414,20 @@ footer .text-light:hover {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">
+                        <a class="nav-link " href="index.html">
                             <i class='bx bxs-home'></i> Home
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="store.html">
+                        <a class="nav-link active1" href="store.html">
                             <i class='bx bxs-shopping-bag-alt'></i> Store
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="categories.html">
                             <i class='bx bxs-category'></i> Categories
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" href="list.html">
                             <i class='bx bxs-heart'></i> Wishlist
@@ -344,7 +435,7 @@ footer .text-light:hover {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="AI.html">
-                           <i class='bx bxs-chat'></i>AI Asistens
+                            <i class='bx bxs-chat'></i>AI Asistens
                         </a>
                     </li>
                 </ul>
@@ -374,6 +465,28 @@ footer .text-light:hover {
                     <option value="harga-terendah">Harga: Rendah ke Tinggi</option>
                     <option value="harga-tertinggi">Harga: Tinggi ke Rendah</option>
                 </select>
+            </div>
+            <!-- FILTER KATEGORI -->
+            <div class="mb-4">
+                <h5>Filter Kategori</h5>
+                <div id="categoryFilters" class="d-flex flex-wrap gap-3">
+                    <div>
+                        <input type="checkbox" id="filter-nendoroid" value="Nendoroid" class="category-checkbox">
+                        <label for="filter-nendoroid">Nendoroid</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="filter-figma" value="Figma" class="category-checkbox">
+                        <label for="filter-figma">Figma</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="filter-modelkit" value="Model Kit" class="category-checkbox">
+                        <label for="filter-modelkit">Model Kit</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="filter-scalefigure" value="Scale Figure" class="category-checkbox">
+                        <label for="filter-scalefigure">Scale Figure</label>
+                    </div>
+                </div>
             </div>
             <div class="row" id="productContainer">
                 <!-- Products will be dynamically added here -->
@@ -409,7 +522,8 @@ footer .text-light:hover {
                         <i class='bx bxs-store'></i>
                         <span>FigureStore</span>
                     </div>
-                    <p class="text-light-gray">Toko figure anime terpercaya dengan koleksi terlengkap dan original. Kami menyediakan berbagai merchandise anime berkualitas tinggi.</p>
+                    <p class="text-light-gray">Toko figure anime terpercaya dengan koleksi terlengkap dan original. Kami
+                        menyediakan berbagai merchandise anime berkualitas tinggi.</p>
                 </div>
                 <div class="col-md-2 mb-4">
                     <h5>Menu</h5>
@@ -450,8 +564,8 @@ footer .text-light:hover {
                     <p class="mb-0">&copy; 2024 FigureStore. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <a href="#" class="text-light me-3">Privacy Policy</a>
-                    <a href="#" class="text-light">Terms & Conditions</a>
+                    <a href="#" class="text-light2 me-3">Privacy Policy</a>
+                    <a href="#" class="text-light2">Terms & Conditions</a>
                 </div>
             </div>
         </div>
@@ -463,56 +577,84 @@ footer .text-light:hover {
         const products = [
             {
                 id: 1,
-                name: "Nendoroid Naruto Uzumaki",
+                name: "PVC Figure Tepetlisaur Whelp Natlan Saurian Series",
                 price: 750000,
-                image: "https://via.placeholder.com/300x300",
-                status: "Ready Stock"
+                image: "https://cdn.kyou.id/items/381878-pvc-figure-tepetlisaur-whelp-natlan-saurian-series-genshin-impact-8cm.jpg.webp",
+                status: "Ready Stock",
+                categories: ["Nendoroid"]
             },
             {
                 id: 2,
-                name: "Figma Mikasa Ackerman",
+                name: "PVC Figure Genkai Toppa GQuuuuuuX - Before Activating Omega Psycommu Ver",
                 price: 1200000,
-                image: "https://via.placeholder.com/300x300",
-                status: "Pre-Order"
+                image: "https://cdn.kyou.id/items/405333-pvc-figure-genkai-toppa-gquuuuuux-before-activating-omega-psycommu-ver-mobile-suit-gundam-gquuuuuux-size-tba.jpg.webp",
+                status: "Pre-Order",
+                categories: ["Model Kit"]
             },
             {
                 id: 3,
-                name: "Model Kit Gundam RX-78-2",
+                name: "Gundam Universe ASW-G-08 Gundam Barbatos - Renewal Ver",
                 price: 850000,
-                image: "https://via.placeholder.com/300x300",
-                status: "Restock"
+                image: "https://cdn.kyou.id/items/398696-gundam-universe-asw-g-08-gundam-barbatos-renewal-ver-mobile-suit-gundam-iron-blooded-orphans.jpg.webp",
+                status: "Restock",
+                categories: ["Model Kit"]
+            },
+            {
+                id: 4,
+                name: "PVC Figure Hatsune Miku - Zaku Costume Ver. Vocaloid x Gundam",
+                price: 2000000,
+                image: "https://cdn.kyou.id/items/394584-pvc-figure-hatsune-miku-zaku-costume-ver-vocaloid-x-gundam-45th-anniversary-15cm.jpg.webp",
+                status: "Ready Stock",
+                categories: ["Scale Figure"]
+            },
+            {
+                id: 5,
+                name: "INART Action Figure 1/12 Zhu Bajie - Black Myth: Wukong",
+                price: 1200000,
+                image: "https://cdn.kyou.id/items/405541-inart-action-figure-112-zhu-bajie-black-myth-wukong.jpg.webp",
+                status: "Pre-Order",
+                categories: ["Scale Figure"]
+            },
+            {
+                id: 6,
+                name: "Model Kit 1/72 Motor Nuclear MNQ-XH08 Sun WuKong / The Monkey King",
+                price: 800000,
+                image: "https://cdn.kyou.id/items/355930-model-kit-172-motor-nuclear-mnq-xh08-sun-wukong-the-monkey-king.jpg.webp",
+                status: "Ready Stock",
+                categories: ["Nendoroid"]
             }
-            // Tambahkan produk lainnya di sini
         ];
 
         // Fungsi untuk menampilkan produk
         function displayProducts(productsToShow = products) {
             const container = document.getElementById('productContainer');
             container.innerHTML = productsToShow.map(product => `
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <span class="status-badge badge ${getStatusClass(product.status)}">${product.status}</span>
-                        <img src="${product.image}" class="card-img-top" alt="${product.name}">
-                        <div class="card-body">
-                            <h5 class="card-title">${product.name}</h5>
-                            <p class="card-text">Rp ${product.price.toLocaleString()}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <button class="btn btn-primary btn-sm" onclick="addToCart('${product.name}', ${product.price}, '${product.image}')">
-                                    <i class="bx bxs-cart-add"></i> Keranjang
-                                </button>
-                                <button class="btn btn-outline-danger btn-sm" onclick="addToWishlist(${product.id}, '${product.name}', ${product.price}, '${product.image}')">
-                                    <i class="bx bxs-heart"></i>
-                                </button>
-                            </div>
+        <div class="col-md-4 mb-4">
+            <a href="show.html?id=${product.id}" class="card-link" style="text-decoration:none; color:inherit;">
+                <div class="card h-100" style="cursor:pointer;">
+                    <span class="status-badge badge ${getStatusClass(product.status)}">${product.status}</span>
+                    <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">Rp ${product.price.toLocaleString()}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button class="btn btn-primary btn-sm" onclick="event.preventDefault();addToCart('${product.name}', ${product.price}, '${product.image}')">
+                                <i class="bx bxs-cart-add"></i> Keranjang
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="event.preventDefault();addToWishlist(${product.id}, '${product.name}', ${product.price}, '${product.image}')">
+                                <i class="bx bxs-heart"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            </a>
+        </div>
+    `).join('');
         }
 
         // Fungsi untuk mendapatkan class badge status
         function getStatusClass(status) {
-            switch(status) {
+            switch (status) {
                 case 'Ready Stock': return 'bg-success';
                 case 'Pre-Order': return 'bg-warning text-dark';
                 case 'Restock': return 'bg-info';
@@ -525,11 +667,11 @@ footer .text-light:hover {
             let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
             cartItems.push({ name, price, image });
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
-            
+
             // Tambahkan juga ke wishlist
             let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
             const id = wishlist.length + 1; // Generate ID sederhana
-            
+
             if (!wishlist.some(item => item.name === name)) {
                 wishlist.push({ id, name, price, image });
                 localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -537,7 +679,7 @@ footer .text-light:hover {
             } else {
                 showNotification('Item berhasil ditambahkan ke keranjang', 'success');
             }
-            
+
             updateCartCount();
             updateCartDisplay();
         }
@@ -545,7 +687,7 @@ footer .text-light:hover {
         // Fungsi untuk menambahkan ke wishlist
         function addToWishlist(id, name, price, image) {
             let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-            
+
             if (!wishlist.some(item => item.id === id)) {
                 wishlist.push({ id, name, price, image });
                 localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -561,7 +703,7 @@ footer .text-light:hover {
             notification.className = `alert alert-${type} notification-popup`;
             notification.innerHTML = message;
             document.body.appendChild(notification);
-            
+
             setTimeout(() => {
                 notification.remove();
             }, 3000);
@@ -612,7 +754,7 @@ footer .text-light:hover {
         // Fungsi untuk mengurutkan produk
         function sortProducts(value) {
             let sortedProducts = [...products];
-            switch(value) {
+            switch (value) {
                 case 'harga-terendah':
                     sortedProducts.sort((a, b) => a.price - b.price);
                     break;
@@ -626,12 +768,35 @@ footer .text-light:hover {
             displayProducts(sortedProducts);
         }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        // FILTER KATEGORI
+        document.addEventListener('DOMContentLoaded', function () {
             displayProducts();
             updateCartCount();
             updateCartDisplay();
+
+            // Event listener untuk filter kategori
+            document.querySelectorAll('.category-checkbox').forEach(cb => {
+                cb.addEventListener('change', function () {
+                    filterByCategory();
+                });
+            });
         });
+
+        function filterByCategory() {
+            const checked = Array.from(document.querySelectorAll('.category-checkbox:checked')).map(cb => cb.value);
+            if (checked.length === 0) {
+                displayProducts(products);
+            } else {
+                const filtered = products.filter(product =>
+                    product.categories.some(cat => checked.includes(cat))
+                );
+                displayProducts(filtered);
+            }
+        }
+
+        
     </script>
+    <script src="style.js"></script>
 </body>
+
 </html>
